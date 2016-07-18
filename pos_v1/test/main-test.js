@@ -34,4 +34,208 @@ describe('pos', () => {
 
     expect(console.log).toHaveBeenCalledWith(expectText);
   });
-});
+  // it('splitItem should print correct result', ()=> {
+  //   let spectResult = [
+  //     {
+  //       item: {
+  //         barcode: 'ITEM000001',
+  //         name: '雪碧',
+  //         unit: '瓶',
+  //         price: 3.00
+  //       },
+  //       count: 1
+  //     },
+  //     {
+  //       item: {
+  //         barcode: 'ITEM000001',
+  //         name: '雪碧',
+  //         unit: '瓶',
+  //         price: 3.00
+  //       },
+  //       count: 1
+  //     },
+  //     {
+  //       item: {
+  //         barcode: 'ITEM000001',
+  //         name: '雪碧',
+  //         unit: '瓶',
+  //         price: 3.00
+  //       },
+  //       count: 1
+  //     },
+  //     {
+  //       item: {
+  //         barcode: 'ITEM000001',
+  //         name: '雪碧',
+  //         unit: '瓶',
+  //         price: 3.00
+  //       },
+  //       count: 1
+  //     },
+  //     {
+  //       item: {
+  //         barcode: 'ITEM000001',
+  //         name: '雪碧',
+  //         unit: '瓶',
+  //         price: 3.00
+  //       },
+  //       count: 1
+  //     },
+  //     {
+  //       item: {
+  //         barcode: 'ITEM000003',
+  //         name: '荔枝',
+  //         unit: '斤',
+  //         price: 15.00
+  //       },
+  //       count: 2
+  //     },
+  //     {
+  //       item: {
+  //         barcode: 'ITEM000005',
+  //         name: '方便面',
+  //         unit: '袋',
+  //         price: 4.50
+  //       },
+  //       count: 1
+  //     },
+  //     {
+  //       item: {
+  //         barcode: 'ITEM000005',
+  //         name: '方便面',
+  //         unit: '袋',
+  //         price: 4.50
+  //       },
+  //       count: 1
+  //     },
+  //     {
+  //       item: {
+  //         barcode: 'ITEM000005',
+  //         name: '方便面',
+  //         unit: '袋',
+  //         price: 4.50
+  //       },
+  //       count: 1
+  //     }];
+  //   let testResult = splitItem(inputs);
+  //   expect(testResult).toEqual(spectResult);
+  // });
+  it('groupInput should print correct result', ()=> {
+    // let inputs = [
+    //   {
+    //     item: {
+    //       barcode: 'ITEM000001',
+    //       name: '雪碧',
+    //       unit: '瓶',
+    //       price: 3.00
+    //     },
+    //     count: 1
+    //   },
+    //   {
+    //     item: {
+    //       barcode: 'ITEM000001',
+    //       name: '雪碧',
+    //       unit: '瓶',
+    //       price: 3.00
+    //     },
+    //     count: 1
+    //   },
+    //   {
+    //     item: {
+    //       barcode: 'ITEM000001',
+    //       name: '雪碧',
+    //       unit: '瓶',
+    //       price: 3.00
+    //     },
+    //     count: 1
+    //   },
+    //   {
+    //     item: {
+    //       barcode: 'ITEM000001',
+    //       name: '雪碧',
+    //       unit: '瓶',
+    //       price: 3.00
+    //     },
+    //     count: 1
+    //   },
+    //   {
+    //     item: {
+    //       barcode: 'ITEM000001',
+    //       name: '雪碧',
+    //       unit: '瓶',
+    //       price: 3.00
+    //     },
+    //     count: 1
+    //   },
+    //   {
+    //     item: {
+    //       barcode: 'ITEM000003',
+    //       name: '荔枝',
+    //       unit: '斤',
+    //       price: 15.00
+    //     },
+    //     count: 2
+    //   },
+    //   {
+    //     item: {
+    //       barcode: 'ITEM000005',
+    //       name: '方便面',
+    //       unit: '袋',
+    //       price: 4.50
+    //     },
+    //     count: 1
+    //   },
+    //   {
+    //     item: {
+    //       barcode: 'ITEM000005',
+    //       name: '方便面',
+    //       unit: '袋',
+    //       price: 4.50
+    //     },
+    //     count: 1
+    //   },
+    //   {
+    //     item: {
+    //       barcode: 'ITEM000005',
+    //       name: '方便面',
+    //       unit: '袋',
+    //       price: 4.50
+    //     },
+    //     count: 1
+    //   }];
+    let spectResult = [
+      {
+        item: {
+          barcode: 'ITEM000001',
+          name: '雪碧',
+          unit: '瓶',
+          price: 3.00
+        },
+        count: 5
+      },
+      {
+        item: {
+          barcode: 'ITEM000003',
+          name: '荔枝',
+          unit: '斤',
+          price: 15.00
+        },
+        count: 2
+      },
+      {
+        item: {
+          barcode: 'ITEM000005',
+          name: '方便面',
+          unit: '袋',
+          price: 4.50
+        },
+        count: 3
+      }];
+    // let testResult = groupItem(inputs);
+    let allItems = loadAllItems();
+    let testResult = buildCartItem(inputs, allItems);
+    expect(testResult).toEqual(spectResult);
+  });
+
+})
+;
