@@ -233,10 +233,10 @@ describe('pos', () => {
       }];
     // let testResult = groupItem(inputs);
     let allItems = loadAllItems();
-    let testResult = buildCartItem(inputs, allItems);
+    let testResult = buildCartItems(inputs, allItems);
     expect(testResult).toEqual(spectResult);
   });
-  it('getSubInput should print correct result', ()=> {
+  it('buildReceiptItems should print correct result', ()=> {
     let inputs = [
       {
         item: {
@@ -267,7 +267,7 @@ describe('pos', () => {
       }];
     let spectResult = [
       {
-        items: {
+        cartItem: {
           item: {
             barcode: 'ITEM000001',
             name: '雪碧',
@@ -276,11 +276,11 @@ describe('pos', () => {
           },
           count: 5
         },
-        save: 3,
+        saved: 3,
         subtotal: 12
       },
       {
-        items: {
+        cartItem: {
           item: {
             barcode: 'ITEM000003',
             name: '荔枝',
@@ -289,11 +289,11 @@ describe('pos', () => {
           },
           count: 2
         },
-        save: 0,
+        saved: 0,
         subtotal: 30
       },
       {
-        items: {
+        cartItem: {
           item: {
             barcode: 'ITEM000005',
             name: '方便面',
@@ -302,12 +302,65 @@ describe('pos', () => {
           },
           count: 3
         },
-        save: 4.5,
+        saved: 4.5,
         subtotal: 9
       }
     ];
     let promotions = loadPromotions();
-    let testResult = getSubTotal(inputs, promotions);
+    let testResult = buildReceiptItems(inputs, promotions);
     expect(testResult).toEqual(spectResult);
   });
+  it('buildResult should print correct result',()=>{
+    let inputs = [
+      {
+        cartItem: {
+          item: {
+            barcode: 'ITEM000001',
+            name: '雪碧',
+            unit: '瓶',
+            price: 3.00
+          },
+          count: 5
+        },
+        saved: 3,
+        subtotal: 12
+      },
+      {
+        cartItem: {
+          item: {
+            barcode: 'ITEM000003',
+            name: '荔枝',
+            unit: '斤',
+            price: 15.00
+          },
+          count: 2
+        },
+        saved: 0,
+        subtotal: 30
+      },
+      {
+        cartItem: {
+          item: {
+            barcode: 'ITEM000005',
+            name: '方便面',
+            unit: '袋',
+            price: 4.50
+          },
+          count: 3
+        },
+        saved: 4.5,
+        subtotal: 9
+      }
+    ];
+    let expectText = `***<没钱赚商店>收据***
+名称：雪碧，数量：5瓶，单价：3.00(元)，小计：12.00(元)
+名称：荔枝，数量：2斤，单价：15.00(元)，小计：30.00(元)
+名称：方便面，数量：3袋，单价：4.50(元)，小计：9.00(元)
+----------------------
+总计：51.00(元)
+节省：7.50(元)
+**********************`;
+    let testResult = buildResult(inputs);
+    expect(testResult).toEqual(expectText);
+  })
 });
