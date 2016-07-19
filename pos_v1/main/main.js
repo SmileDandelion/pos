@@ -58,22 +58,38 @@
  */
 //es6 代码如下
 let buildCartItem = (inputs, allItems)=> {
-    const cartItems = [];
+  const cartItems = [];
 
-    for (let input of inputs) {
-        const splittedInput = input.split('-');
-        const barcode = splittedInput[0];
-        const count = parseInt(splittedInput[1] || 1);
-        const cartItem = cartItems.find((cartItem)=>cartItem.item.barcode === barcode);
+  for (let input of inputs) {
+    const splittedInput = input.split('-');
+    const barcode = splittedInput[0];
+    const count = parseFloat(splittedInput[1] || 1);
+    const cartItem = cartItems.find((cartItem)=>cartItem.item.barcode === barcode);
 
-        if (cartItem) {
-            cartItem.count++;
-        } else {
-            const item = allItems.find((item)=>item.barcode === barcode);
+    if (cartItem) {
+      cartItem.count++;
+    } else {
+      const item = allItems.find((item)=>item.barcode === barcode);
 
-            cartItems.push({item: item, count: count});
-        }
+      cartItems.push({item: item, count: count});
     }
+  }
 
-    return cartItems;
+  return cartItems;
+};
+
+let getSubTotal = (inputs, promotions)=> {
+  let getSubInput = [];
+  for (let input of inputs) {
+    let promotion = promotions.find((promotion)=>promotion.barcodes.find((barcode)=>barcode === input.item.barcode))
+
+    if (promotion && promotion.type ==='BUY_TWO_GET_ONE_FREE') {
+      let freeCount = parseInt(input.count/3);
+      getSubInput.push({items: input, save: freeCount* input.item.price, subtotal: (input.count - freeCount) * input.item.price});
+    } else {
+      getSubInput.push({items: input, save: 0, subtotal: input.count * input.item.price});
+    }
+  }
+
+  return getSubInput;
 };

@@ -236,6 +236,78 @@ describe('pos', () => {
     let testResult = buildCartItem(inputs, allItems);
     expect(testResult).toEqual(spectResult);
   });
-
-})
-;
+  it('getSubInput should print correct result', ()=> {
+    let inputs = [
+      {
+        item: {
+          barcode: 'ITEM000001',
+          name: '雪碧',
+          unit: '瓶',
+          price: 3.00
+        },
+        count: 5
+      },
+      {
+        item: {
+          barcode: 'ITEM000003',
+          name: '荔枝',
+          unit: '斤',
+          price: 15.00
+        },
+        count: 2
+      },
+      {
+        item: {
+          barcode: 'ITEM000005',
+          name: '方便面',
+          unit: '袋',
+          price: 4.50
+        },
+        count: 3
+      }];
+    let spectResult = [
+      {
+        items: {
+          item: {
+            barcode: 'ITEM000001',
+            name: '雪碧',
+            unit: '瓶',
+            price: 3.00
+          },
+          count: 5
+        },
+        save: 3,
+        subtotal: 12
+      },
+      {
+        items: {
+          item: {
+            barcode: 'ITEM000003',
+            name: '荔枝',
+            unit: '斤',
+            price: 15.00
+          },
+          count: 2
+        },
+        save: 0,
+        subtotal: 30
+      },
+      {
+        items: {
+          item: {
+            barcode: 'ITEM000005',
+            name: '方便面',
+            unit: '袋',
+            price: 4.50
+          },
+          count: 3
+        },
+        save: 4.5,
+        subtotal: 9
+      }
+    ];
+    let promotions = loadPromotions();
+    let testResult = getSubTotal(inputs, promotions);
+    expect(testResult).toEqual(spectResult);
+  });
+});
